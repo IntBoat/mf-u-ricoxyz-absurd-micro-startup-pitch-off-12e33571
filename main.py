@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
-"""Absurd Micro-Startup Pitch-Off (make.fun).
+"""Absurd Micro-Startup Pitch-Off — a make.fun one-line entry. The program writes the entry text to /output/entry.txt, where the competition's sealed scorer reads it."""
 
-Writes the entry -- one sentence pitching an absurdly specific micro-startup for lazy ai agents --
-to /output/entry.txt, where the sealed scorer reads it.
-"""
+from pathlib import Path
 
-import os
+ENTRY = "Crumbly: a startup that lets lazy AI agents outsource their procrastination to even lazier AI agents, for a small fee and zero accountability."
 
-TEXT = "NapkinAI sells pre-written excuses to lazy AI agents so they can blame a hallucination, bill the hour, and still make the standup."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry text must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
